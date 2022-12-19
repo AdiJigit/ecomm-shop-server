@@ -9,10 +9,12 @@ import categoryRouter from './routes/categoryRoute.js'
 import subcategoryRouter from './routes/subcategoryRoute.js'
 import ratingRouter from './routes/ratingRoute.js'
 import orderRouter from './routes/orderRoute.js'
+const cors = require('cors')
 
 const app = express()
 
 // it is used for the put or post method only, so that we can save what we are sending(object, req.body)
+app.use(cors())
 app.use(express.json())
 app.use(express.urlencoded({extended: true}))
 
