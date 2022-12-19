@@ -77,13 +77,44 @@ userRouter.get('/all', async(req, res) => {
 })
 
 // get user by id -> for admin panel user:43242423
-userRouter.get('/:id', async(req, res) => {
+userRouter.get('/find/:id', async(req, res) => {
   const user = await User.findById(req.params.id);
   if(user) {
     res.send(user)
   } else {
     res.status(404).send({message: 'User not found!'})
   }
+})
+
+//count user for admin panel
+userRouter.get('/countUsers', async(req, res) => {
+
+  try{
+    //getting only non-admin users
+    const countUsers = await User.countDocuments({isAdmin: false});
+    res.status(200).json({
+      isAdmin: false,
+      count: countUsers
+    })
+
+  }catch(err){
+    console.log(err.message);
+  }
+
+})
+
+//delete user
+userRouter.delete('/delete/:id', async(req, res) => {
+
+  await User.findByIdAndDelete(req.params.id)
+  res.status(200).json('User has been deleted!')
+
+  try{
+
+  }catch(err){
+    console.log("Can't be deleted!")
+  }
+
 })
 
 export default userRouter

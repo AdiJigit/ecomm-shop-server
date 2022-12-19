@@ -39,13 +39,27 @@ orderRouter.get('/mine/:id', async(req, res) => {
 })
 
 //get my one order
-orderRouter.get('/:id', async(req, res) => {
+orderRouter.get('/find/:id', async(req, res) => {
   const order = await Order.findById(req.params.id);
   if(order) {
     res.send(order)
   } else {
     res.status(404).send({message: 'Order not Found'})
   }
+})
+
+//count sum total sales for admin panel
+orderRouter.get('/countSumTotal', async(req, res) => {
+
+  try{
+    //getting only non-admin users
+    const countSumTotal = await Order.aggregate([{$group: {_id: null, total: {$sum: '$totalPrice'}}}]);
+    res.status(200).json({count: countSumTotal})
+
+  }catch(err){
+    console.log(err.message);
+  }
+
 })
 
 export default orderRouter
