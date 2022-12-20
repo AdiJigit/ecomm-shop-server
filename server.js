@@ -14,7 +14,10 @@ import mongoose from 'mongoose'
 const app = express()
 
 // it is used for the put or post method only, so that we can save what we are sending(object, req.body)
-app.use(cors())
+app.use(cors({
+  origin: '*',
+  credentials: true
+}))
 app.use(express.json())
 app.use(express.urlencoded({extended: true}))
 
