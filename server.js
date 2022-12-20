@@ -1,6 +1,5 @@
-import  express  from 'express' //"type": "module",
+import express from 'express' //"type": "module",
 import dotenv from 'dotenv'
-import mongoose from 'mongoose'
 import seedRouter from './routes/seedRoute.js'
 import userRouter from './routes/userRoute.js'
 import blogRouter from './routes/blogRoute.js'
@@ -9,7 +8,8 @@ import categoryRouter from './routes/categoryRoute.js'
 import subcategoryRouter from './routes/subcategoryRoute.js'
 import ratingRouter from './routes/ratingRoute.js'
 import orderRouter from './routes/orderRoute.js'
-const cors = require('cors')
+import cors from 'cors'
+import mongoose from 'mongoose'
 
 const app = express()
 

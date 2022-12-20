@@ -3,11 +3,10 @@ import Subcategory from "../models/subcategoryModel.js";
 
 const subcategoryRouter = express.Router();
 
-
 //get all subcategories -> for frontend
-subcategoryRouter.get('/all', async(req, res) => {
+subcategoryRouter.get("/all", async (req, res) => {
   const subcategory = await Subcategory.find();
-  res.send(subcategory)
-  })
+  res.send(subcategory);
+});
 
-  export default subcategoryRouter
+export default subcategoryRouter;

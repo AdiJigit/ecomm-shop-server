@@ -8,7 +8,7 @@ blogRouter.post("/add", async (req, res) => {
   const newBlog = new Blog({
     title: req.body.title,
     description: req.body.description,
-    img: req.body.img
+    img: req.body.img,
   });
   const blog = await newBlog.save();
   res.send({
@@ -19,77 +19,66 @@ blogRouter.post("/add", async (req, res) => {
   });
 });
 
-
 // get all blogs -> for frontend
-blogRouter.get('/all', async(req, res) => {
+blogRouter.get("/all", async (req, res) => {
   const blog = await Blog.find();
-  res.send(blog)
-})
+  res.send(blog);
+});
 
 // get blog by id -> for frontend
-blogRouter.get('/find/:id', async(req, res) => {
+blogRouter.get("/find/:id", async (req, res) => {
   const blog = await Blog.findById(req.params.id);
-  if(blog) {
-    res.send(blog)
+  if (blog) {
+    res.send(blog);
   } else {
-    res.status(404).send({message: 'Blog not found!'})
+    res.status(404).send({ message: "Blog not found!" });
   }
-})
+});
 
 //count blogs for admin panel
-blogRouter.get('/countBlogs', async(req, res) => {
-
-  try{
+blogRouter.get("/countBlogs", async (req, res) => {
+  try {
     //getting only non-admin users
-    const countBlogs = await Blog.countDocuments({author: 'Admin'});
+    const countBlogs = await Blog.countDocuments({ author: "Admin" });
     res.status(200).json({
-      author: 'Admin',
-      count: countBlogs
-    })
-
-  }catch(err){
+      author: "Admin",
+      count: countBlogs,
+    });
+  } catch (err) {
     console.log(err.message);
   }
-
-})
+});
 
 //delete blog
-blogRouter.delete('/delete/:id', async(req, res) => {
+blogRouter.delete("/delete/:id", async (req, res) => {
+  await Blog.findByIdAndDelete(req.params.id);
+  res.status(200).json("Blog has been deleted!");
 
-  await Blog.findByIdAndDelete(req.params.id)
-  res.status(200).json('Blog has been deleted!')
-
-  try{
-
-  }catch(err){
-    console.log("Can't be deleted!")
+  try {
+  } catch (err) {
+    console.log("Can't be deleted!");
   }
-
-})
+});
 
 //update blog
-blogRouter.put('/update', async(req, res) => {
-
-  const blog = await Blog.findById(req.body._id)
+blogRouter.put("/update", async (req, res) => {
+  const blog = await Blog.findById(req.body._id);
 
   //if blog exists
-  if(blog){
+  if (blog) {
+    blog.title = req.body.title || blog.title;
+    blog.description = req.body.description || blog.description;
 
-    blog.title = req.body.title || blog.title
-    blog.description = req.body.description || blog.description
-
-    const updatedBlog = await blog.save()
+    const updatedBlog = await blog.save();
     res.send({
       _id: updatedBlog._id,
       title: updatedBlog.title,
       description: updatedBlog.description,
-      author: updatedBlog.author
-    })
-
+      author: updatedBlog.author,
+    });
   } else {
-    res.status(404).send({message: 'Blog not found!'})
+    res.status(404).send({ message: "Blog not found!" });
   }
-
-})
+});
 
 export default blogRouter;
