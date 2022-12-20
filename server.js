@@ -32,7 +32,9 @@ app.use('/api/orders', orderRouter)
 
 
 //connect with db
-dotenv.config()
+dotenv.config({
+  'https://jigit.onrender.com'
+})
 mongoose.connect(process.env.MONGODB_URI).then(() => {
     console.log('Connected to DB!')
   }).catch((error) => {
