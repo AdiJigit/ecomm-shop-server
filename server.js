@@ -15,7 +15,7 @@ const app = express()
 
 // it is used for the put or post method only, so that we can save what we are sending(object, req.body)
 app.use(cors({
-  origin: ['http://loacalhost:5000', 'https://jigit.onrender.com'],
+  origin: 'https://jigit.onrender.com',
 }))
 app.use(express.json())
 app.use(express.urlencoded({extended: true}))
@@ -33,7 +33,7 @@ app.use('/api/orders', orderRouter)
 
 //connect with db
 dotenv.config({
-  origin: 'https://jigit.adaptable.app'
+  
 })
 mongoose.connect(process.env.MONGODB_URI).then(() => {
     console.log('Connected to DB!')
