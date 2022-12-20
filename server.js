@@ -33,7 +33,7 @@ app.use('/api/orders', orderRouter)
 
 //connect with db
 dotenv.config();
-mongoose.connect(process.env.MONGODB_URI).then(() => {
+mongoose.connect('mongodb+srv://adijigit:Aa-33-66@ecommercedb.nhpzle6.mongodb.net/?retryWrites=true&w=majority').then(() => {
     console.log('Connected to DB!')
   }).catch((error) => {
     console.log(error.message)
