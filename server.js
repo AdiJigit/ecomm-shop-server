@@ -15,7 +15,7 @@ const app = express()
 
 // it is used for the put or post method only, so that we can save what we are sending(object, req.body)
 app.use(cors({
-  origin: 'https://jigit.onrender.com',
+  origin: ['https://jigit.onrender.com', 'http://localhost:5000'],
 }))
 app.use(express.json())
 app.use(express.urlencoded({extended: true}))
