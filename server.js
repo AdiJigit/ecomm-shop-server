@@ -30,7 +30,9 @@ app.use('/api/orders', orderRouter)
 
 
 //connect with db
-dotenv.config()
+dotenv.config({
+  origin: 'https://jigit.adaptable.app'
+})
 mongoose.connect(process.env.MONGODB_URI).then(() => {
     console.log('Connected to DB!')
   }).catch((error) => {
